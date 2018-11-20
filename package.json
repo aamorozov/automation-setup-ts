@@ -1,9 +1,13 @@
 {
-  "name": "nw",
+  "name": "nightwatch-new",
+  "author": "Andrey Morozov",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "7.1.6",
+    "@babel/preset-env": "7.1.6",
+    "@babel/register": "7.0.0",
     "chromedriver": "2.43.3",
     "geckodriver": "1.14.1",
     "nightwatch": "1.0.14",
