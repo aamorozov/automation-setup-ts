@@ -1,14 +1,14 @@
 module.exports = {
-  src_folders: ['./tests/'],
-  output_folder: './reports',
-  custom_commands_path: './commands',
-  custom_assertions_path: './assertions',
-  page_objects_path: './pages',
+  src_folders: ['./src/tests/'],
+  output_folder: './generatedFiles/reports',
+  // custom_commands_path: './src/commands',
+  // custom_assertions_path: './src/assertions',
+  // page_objects_path: './src/pages',
   globals_path: '',
   disable_colors: false,
   screenshots: {
     enabled: true,
-    path: './screenshots'
+    path: './generatedFiles/screenshots'
   },
   request_timeout_options: {
     timeout: 60000,
