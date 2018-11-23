@@ -4,6 +4,7 @@ const path = require('path');
 
 const GECKO_DRIVER_PATH = require('geckodriver').path;
 const CHROME_DRIVER_PATH = require('chromedriver').path;
+const SELENIUM_SERVER_PATH = require('selenium-server').path;
 const TESTS_PATH = path.resolve(__dirname, 'src', 'tests');
 const SERVER_LOGS_PATH =
   process.env.SERVER_LOGS_PATH ||
@@ -49,13 +50,31 @@ const FIREFOX_CONFIG = {
   }
 };
 
+const SELENIUM_CONFIG = {
+  selenium: {
+    start_process: true,
+    host: 'localhost',
+    port: 4444,
+    server_path: SELENIUM_SERVER_PATH,
+    cli_args: {
+      'webdriver.gecko.driver': GECKO_DRIVER_PATH,
+      'webdriver.chrome.driver': CHROME_DRIVER_PATH
+    }
+  },
+
+  desiredCapabilities: {
+    browserName: 'firefox',
+    acceptSslCerts: true
+  }
+};
+
 module.exports = {
   src_folders: TESTS_PATH,
   output_folder: REPORTS_PATH,
-  // custom_commands_path: './src/commands',
+  custom_commands_path: './src/commands',
   // custom_assertions_path: './src/assertions',
   // page_objects_path: './src/pages',
-  globals_path: '',
+  globals_path: GLOBALS_PATH,
   launch_url: LAUNCH_URL,
   test_workers: {
     enabled: false,
@@ -85,6 +104,7 @@ module.exports = {
   webdriver: DEFAULT_CONFIG,
   test_settings: {
     default: CHROME_CONFIG,
-    firefox: FIREFOX_CONFIG
+    firefox: FIREFOX_CONFIG,
+    selenium: SELENIUM_CONFIG
   }
 };
