@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "./node_modules/.bin/nightwatch --env default"
+  },
   "dependencies": {
     "@babel/core": "7.1.6",
     "@babel/preset-env": "7.1.6",
