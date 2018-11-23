@@ -6,4 +6,4 @@ const afterEach = (client, done) => {
   client.end(done);
 };
 
-export default {beforeEach, afterEach};
+module.exports = {beforeEach, afterEach};
