@@ -2,7 +2,7 @@ export function command(selector, waitTimeout = 5000, callback) {
   return new Promise(resolve => {
     this.waitForElementVisible(selector, waitTimeout, result => {
       if (result.status === 0 && result.value === 'false') {
-        this.waitForElementPresent(selector)
+        this.waitForElementPresent(selector, waitTimeout)
           .moveToElement(selector, 0, 0)
           .click(selector, () => resolve());
       }
