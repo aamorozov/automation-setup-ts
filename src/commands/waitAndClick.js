@@ -1,6 +1,6 @@
-export function command(selector, callback) {
+export function command(selector, waitTimeout = 5000, callback) {
   return new Promise(resolve => {
-    this.waitForElementVisible(selector, 5000, result => {
+    this.waitForElementVisible(selector, waitTimeout, result => {
       if (result.status === 0 && result.value === 'false') {
         this.waitForElementPresent(selector)
           .moveToElement(selector, 0, 0)
