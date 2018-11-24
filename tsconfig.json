@@ -5,11 +5,12 @@
     /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd' or 'es2015' */
     "module": "commonjs",
     /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT' */
-    "target": "es2015",
+    "target": "es2017",
     /* Specify library files to be included in the compilation:  */
-    "lib": ["es5", "es2015", "es6", "esnext"],
+    "lib": ["esnext"],
     /* Allow javascript files to be compiled. */
     "allowJs": true,
+    "sourceMap": true,
     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     "jsx": "react",
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
@@ -34,7 +35,7 @@
     /* Report errors on unused locals. */
     "noUnusedLocals": true,
     /* Emit a single file with source maps instead of having a separate file. */
-    "inlineSourceMap": true,
+    "inlineSourceMap": false,
     /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
     // "inlineSources": true
     /* Enables experimental support for ES7 decorators. */
