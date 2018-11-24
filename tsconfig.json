@@ -10,7 +10,7 @@
     "lib": ["esnext"],
     /* Allow javascript files to be compiled. */
     "allowJs": true,
-    "sourceMap": true,
+    "sourceMap": false,
     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     "jsx": "react",
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
