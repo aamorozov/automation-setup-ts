@@ -17,12 +17,10 @@ export function command(
           this.waitForElementPresent(selector, waitTimeout)
             .moveToElement(selector, 0, 0)
             .click(selector, () => resolve());
+        } else {
+          this.moveToElement(selector, 0, 0).click(selector, () => resolve());
         }
       }
     );
-  }).then(() => {
-    if (callback && typeof callback === 'function') {
-      callback.call(this);
-    }
-  });
+  }).then(() => callback && callback.call(this));
 }

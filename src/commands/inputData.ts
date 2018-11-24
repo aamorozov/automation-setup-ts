@@ -22,12 +22,15 @@ export function command(
             .setValue(input, data)
             .getValue(input, res => this.assert.equal(res.value, `${data}`))
             .pause(500, () => resolve());
+        } else {
+          this.moveToElement(input, 0, 0)
+            .click(input)
+            .clearValue(input)
+            .setValue(input, data)
+            .getValue(input, res => this.assert.equal(res.value, `${data}`))
+            .pause(500, () => resolve());
         }
       }
     );
-  }).then(() => {
-    if (callback && typeof callback === 'function') {
-      callback.call(this);
-    }
-  });
+  }).then(() => callback && callback.call(this));
 }
