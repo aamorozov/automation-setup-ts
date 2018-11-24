@@ -13,6 +13,8 @@ const SCREENSHOTS_PATH =
 const REPORTS_PATH =
   process.env.REPORTS_PATH || path.join(__dirname, 'generatedFiles', 'reports');
 const GLOBALS_PATH = process.env.GLOBALS || path.join(__dirname, 'globals.js');
+const COMMANDS_PATH =
+  process.env.CUSTOM_COMMANDS || path.join(__dirname, 'commands');
 const LAUNCH_URL = process.env.LAUNCH_URL || '';
 
 const DEFAULT_CONFIG = {
@@ -70,7 +72,7 @@ const SELENIUM_CONFIG = {
 const config = {
   src_folders: TESTS_PATH,
   output_folder: REPORTS_PATH,
-  custom_commands_path: './src/commands',
+  custom_commands_path: COMMANDS_PATH,
   // custom_assertions_path: './src/assertions',
   // page_objects_path: './src/pages',
   globals_path: GLOBALS_PATH,
