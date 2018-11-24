@@ -1,10 +1,13 @@
-import {NightwatchBrowser} from 'nightwatch';
+import {NightwatchBrowser, NightwatchTestHook} from 'nightwatch';
 
 // const beforeEach = (client: NightwatchBrowser, done: () => void) => {
 //   client.maximizeWindow(done);
 // };
 
-const afterEach = (client: NightwatchBrowser, done: () => void) => {
+const afterEach: NightwatchTestHook = (
+  client: NightwatchBrowser,
+  done: () => void
+) => {
   client.end(done);
 };
 

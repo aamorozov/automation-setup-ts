@@ -1,4 +1,4 @@
-import {NightwatchBrowser, NightwatchCallbackResult} from 'nightwatch';
+import {NightwatchBrowser, NightwatchTypedCallbackResult} from 'nightwatch';
 
 export function command(
   this: NightwatchBrowser,
@@ -12,7 +12,7 @@ export function command(
       selector,
       waitTimeout,
       abortOnFailure,
-      (result: NightwatchCallbackResult): void => {
+      (result: NightwatchTypedCallbackResult<Object>): void => {
         if (result.status === 0 && result.value === false) {
           this.waitForElementPresent(selector, waitTimeout)
             .moveToElement(selector, 0, 0)

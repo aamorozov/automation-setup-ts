@@ -2,12 +2,11 @@ import * as NW from 'nightwatch';
 
 // merge interfaces with nightwatch types
 declare module 'nightwatch' {
-  export interface NightwatchTestSettingGeneric {
-    webdriver: Object;
+  export interface NightwatchWebdriverOptions extends NightwatchOptions {
+    test_settings: NW.NightwatchTestSettings;
   }
-  export interface NightwatchOptions {
-    launch_url: string;
-    detailed_output: boolean;
+  export interface NightwatchTestSettingScreenshots {
+    webdriver?: Object;
   }
   export interface NightwatchCustomCommands {
     inputData(
