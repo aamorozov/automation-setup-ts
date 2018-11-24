@@ -5,15 +5,25 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "./node_modules/.bin/nightwatch --env default"
+    "test": "tsc && ./node_modules/.bin/nightwatch --env default --config ./build/nightwatch.conf.js --verbose"
   },
   "dependencies": {
-    "@babel/core": "7.1.6",
-    "@babel/preset-env": "7.1.6",
-    "@babel/register": "7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "chromedriver": "2.43.3",
     "geckodriver": "1.14.1",
     "nightwatch": "1.0.14",
-    "selenium-server": "3.141.59"
+    "selenium-server": "3.141.59",
+    "tslint-config-prettier": "^1.16.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.1.6",
+    "@babel/preset-env": "7.1.6",
+    "@babel/register": "7.0.0",
+    "@types/nightwatch": "^0.9.11",
+    "@types/node": "^10.12.10",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "prettier": "^1.15.2",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
   }
 }

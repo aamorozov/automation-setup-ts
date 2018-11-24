@@ -1,22 +1,18 @@
-require('@babel/register');
-
-const path = require('path');
+import * as path from 'path';
 
 const GECKO_DRIVER_PATH = require('geckodriver').path;
 const CHROME_DRIVER_PATH = require('chromedriver').path;
 const SELENIUM_SERVER_PATH = require('selenium-server').path;
-const TESTS_PATH = path.resolve(__dirname, 'src', 'tests');
+const TESTS_PATH = path.join(__dirname, 'tests');
 const SERVER_LOGS_PATH =
   process.env.SERVER_LOGS_PATH ||
-  path.resolve(__dirname, 'generatedFiles', 'logs');
+  path.join(__dirname, 'generatedFiles', 'logs');
 const SCREENSHOTS_PATH =
   process.env.SCREENSHOTS_PATH ||
-  path.resolve(__dirname, 'generatedFiles', 'screenshots');
+  path.join(__dirname, 'generatedFiles', 'screenshots');
 const REPORTS_PATH =
-  process.env.REPORTS_PATH ||
-  path.resolve(__dirname, 'generatedFiles', 'reports');
-const GLOBALS_PATH =
-  process.env.GLOBALS || path.resolve(__dirname, 'src', 'globals.js');
+  process.env.REPORTS_PATH || path.join(__dirname, 'generatedFiles', 'reports');
+const GLOBALS_PATH = process.env.GLOBALS || path.join(__dirname, 'globals.js');
 const LAUNCH_URL = process.env.LAUNCH_URL || '';
 
 const DEFAULT_CONFIG = {
@@ -34,7 +30,8 @@ const CHROME_CONFIG = {
   },
   desiredCapabilities: {
     browserName: 'chrome',
-    acceptInsecureCerts: true
+    acceptSslCerts: true,
+    handlesAlerts: true
   }
 };
 
@@ -46,7 +43,8 @@ const FIREFOX_CONFIG = {
   },
   desiredCapabilities: {
     browserName: 'firefox',
-    acceptInsecureCerts: true
+    acceptSslCerts: true,
+    handlesAlerts: true
   }
 };
 
@@ -64,11 +62,12 @@ const SELENIUM_CONFIG = {
 
   desiredCapabilities: {
     browserName: 'firefox',
-    acceptSslCerts: true
+    acceptSslCerts: true,
+    handlesAlerts: true
   }
 };
 
-module.exports = {
+const config = {
   src_folders: TESTS_PATH,
   output_folder: REPORTS_PATH,
   custom_commands_path: './src/commands',
@@ -78,7 +77,7 @@ module.exports = {
   launch_url: LAUNCH_URL,
   test_workers: {
     enabled: false,
-    workers: 10
+    workers: '10'
   },
   parallel_process_delay: 1000,
   live_output: false,
@@ -108,3 +107,5 @@ module.exports = {
     selenium: SELENIUM_CONFIG
   }
 };
+
+module.exports = config;
