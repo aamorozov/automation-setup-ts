@@ -1,18 +1,18 @@
-import {NightwatchBrowser, NightwatchTypedCallbackResult} from 'nightwatch';
+import { NightwatchBrowser, NightwatchTypedCallbackResult } from "nightwatch";
 
 export function command(
   this: NightwatchBrowser,
   selector: string,
   waitTimeout = 5000,
   abortOnFailure?: boolean,
-  callback?: Function
+  callback?: (result: NightwatchTypedCallbackResult<any>) => void
 ) {
   return new Promise(resolve => {
     this.waitForElementVisible(
       selector,
       waitTimeout,
       abortOnFailure,
-      (result: NightwatchTypedCallbackResult<Object>): void => {
+      (result: NightwatchTypedCallbackResult<any>): void => {
         if (result.status === 0 && result.value === false) {
           this.waitForElementPresent(selector, waitTimeout)
             .moveToElement(selector, 0, 0)
