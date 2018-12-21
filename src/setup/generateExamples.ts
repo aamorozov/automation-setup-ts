@@ -11,29 +11,43 @@ import * as path from 'path';
 
 const staticDirectories = {
   tests: path.join('__tests__', 'e2e', 'tests'),
-  pageObjects: path.join('__tests__', 'e2e', 'pageObjects'),
+  pageObjects: path.join('__tests__', 'e2e', 'pages'),
   commands: path.join('__tests__', 'e2e', 'commands'),
   assertions: path.join('__tests__', 'e2e', 'assertions'),
-  data: path.join('__tests__', 'e2e', 'globalData'),
+  data: path.join('__tests__', 'e2e', 'data'),
   config: path.join('__tests__', 'e2e', 'config'),
   utils: path.join('__tests__', 'e2e', 'utils')
 };
 
 export default async function generateExamples(): Promise<void> {
-  const getExistingDirectories = (object: object) =>
-    Object.values(object).filter(
-      (directory: string): boolean =>
-        isDirExists(
-          path.join(
-            '__tests__',
-            'e2e',
-            `${removeWordFromString(directory, './static/')}`
-          )
-        )
+  const getExistingDirectories = (object: object): string[] | null => {
+    // console.log(object);
+    const existingObjects = Object.values(object).filter(
+      (directory: string): string | null => {
+        console.log(isDirExists(path.join('__tests__', 'e2e', directory)));
+        if (!isDirExists(path.join('__tests__', 'e2e', directory))) {
+          return directory;
+        } else {
+          return null;
+        }
+      }
     );
+    console.log(existingObjects);
+    if (existingObjects.length > 0) {
+      return existingObjects;
+      // } else {
+      //   console.log('')
+      // }
+    } else {
+      return null;
+    }
+  };
 
-  const generateResolvers = (object: object): Iterable<PromiseLike<any>> => {
-    return Object.values(object).map(async directory => {
+  const generateResolvers = (
+    resolveArray: string[]
+  ): Iterable<PromiseLike<any>> => {
+    return resolveArray.map(async directory => {
+      // console.log(directory);
       if (isDirExists(directory)) {
         try {
           Promise.resolve(warning(`Directory already exists at ${directory}`));
@@ -43,12 +57,12 @@ export default async function generateExamples(): Promise<void> {
       } else {
         try {
           await promisifiedCopy(
-            directory,
             path.join(
-              '__tests__',
-              'e2e',
+              'src',
+              'static',
               `${removeWordFromString(directory, './static/')}`
             ),
+            directory,
             undefined
           );
           await Promise.resolve(
@@ -69,11 +83,15 @@ export default async function generateExamples(): Promise<void> {
   };
   const runPromises = async () => {
     try {
+      // console.log(staticDirectories);
       const existingDirectories = getExistingDirectories(staticDirectories);
-      if (existingDirectories.length === 0) {
-        Promise.reject(regection('No static directories exist'));
+      // console.log(existingDirectories);
+      // if (existingDirectories.length === 0) {
+      //   Promise.reject(regection('No static directories exist'));
+      // }
+      if (existingDirectories) {
+        await Promise.all(generateResolvers(existingDirectories));
       }
-      await Promise.all(generateResolvers(existingDirectories));
     } catch (e) {
       Promise.reject(regection(e));
     }
