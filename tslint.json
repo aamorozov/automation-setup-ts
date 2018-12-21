@@ -9,7 +9,11 @@
     "curly": true,
     "class-name": true,
     "semicolon": ["always"],
-    "triple-equals": true
+    "single-quote": true,
+    "triple-equals": true,
+    "quotemark": [true, "single"],
+    "no-console": false,
+    "object-literal-sort-keys": false
   },
   "rulesDirectory": []
 }

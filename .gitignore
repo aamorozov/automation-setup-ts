@@ -3,3 +3,4 @@ node_modules
 *.log
 *.png
 build
+.DS_Store
