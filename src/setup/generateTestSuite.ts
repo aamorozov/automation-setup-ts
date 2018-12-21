@@ -21,23 +21,17 @@ const staticDirectories = {
 
 export default async function generateExamples(): Promise<void> {
   const getExistingDirectories = (object: object): string[] | null => {
-    // console.log(object);
     const existingObjects = Object.values(object).filter(
       (directory: string): string | null => {
-        console.log(isDirExists(path.join('__tests__', 'e2e', directory)));
-        if (!isDirExists(path.join('__tests__', 'e2e', directory))) {
-          return directory;
-        } else {
+        if (isDirExists(path.join('__tests__', 'e2e', directory))) {
           return null;
+        } else {
+          return directory;
         }
       }
     );
-    console.log(existingObjects);
     if (existingObjects.length > 0) {
       return existingObjects;
-      // } else {
-      //   console.log('')
-      // }
     } else {
       return null;
     }
@@ -47,7 +41,6 @@ export default async function generateExamples(): Promise<void> {
     resolveArray: string[]
   ): Iterable<PromiseLike<any>> => {
     return resolveArray.map(async directory => {
-      // console.log(directory);
       if (isDirExists(directory)) {
         try {
           Promise.resolve(warning(`Directory already exists at ${directory}`));
@@ -56,7 +49,7 @@ export default async function generateExamples(): Promise<void> {
         }
       } else {
         try {
-          await promisifiedCopy(
+          promisifiedCopy(
             path.join(
               'src',
               'static',
@@ -65,7 +58,7 @@ export default async function generateExamples(): Promise<void> {
             directory,
             undefined
           );
-          await Promise.resolve(
+          Promise.resolve(
             success(
               `The directory ${removeWordFromString(
                 `${directory}`,
@@ -83,12 +76,7 @@ export default async function generateExamples(): Promise<void> {
   };
   const runPromises = async () => {
     try {
-      // console.log(staticDirectories);
       const existingDirectories = getExistingDirectories(staticDirectories);
-      // console.log(existingDirectories);
-      // if (existingDirectories.length === 0) {
-      //   Promise.reject(regection('No static directories exist'));
-      // }
       if (existingDirectories) {
         await Promise.all(generateResolvers(existingDirectories));
       }

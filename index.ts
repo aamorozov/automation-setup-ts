@@ -1,4 +1,4 @@
 import createTempFileDirectory from './src/setup/createTempFileDirectory';
-import generateExamples from './src/setup/generateExamples';
+import generateTestSuite from './src/setup/generateTestSuite';
 
-Promise.all([createTempFileDirectory(), generateExamples()]);
+Promise.all([createTempFileDirectory(), generateTestSuite()]);
