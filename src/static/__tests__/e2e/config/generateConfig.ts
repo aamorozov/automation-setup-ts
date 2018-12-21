@@ -62,6 +62,10 @@ export const generateConfig = (
     selenium: {
       start_process: false
     },
+    webdriver: {
+      start_process: false
+    },
+
     src_folders: './__tests__/e2e/tests',
     output_folder:
       process.env.REPORT_DIR || './__tests__/e2e/generatedFiles/reports',
