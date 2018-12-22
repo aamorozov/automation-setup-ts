@@ -5,7 +5,17 @@ import { promisify } from 'util';
 
 export const promisifiedMkdirp = promisify(mkdirp);
 export const isDirExists = (dir: string): boolean => fs.existsSync(dir);
-export const promisifiedCopy = promisify(fs.copySync);
+export const promisifiedCopy = promisify(fs.copy);
+
+export const warning = (value: string): void =>
+  console.log(chalk.yellow(value));
+export const success = (value: string): void => console.log(chalk.green(value));
+export const error = (value: string): void => console.log(chalk.red(value));
+export const regection = (value: string): Error => new Error(chalk.red(value));
+
+export const getStaticDirectories = (directory: string): Promise<string[]> => {
+  return fs.readdir(directory);
+};
 
 export const removeWordFromString = (
   str: string,
@@ -32,9 +42,3 @@ export const generateResolvers = (
     }
   });
 };
-
-export const warning = (value: string): void =>
-  console.log(chalk.yellow(value));
-export const success = (value: string): void => console.log(chalk.green(value));
-export const error = (value: string): void => console.log(chalk.red(value));
-export const regection = (value: string): Error => new Error(chalk.red(value));
