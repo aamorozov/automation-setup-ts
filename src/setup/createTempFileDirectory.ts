@@ -15,7 +15,6 @@ const tempDirectoryFiles: object = {
 };
 
 const generateResolvers = (object: object): Iterable<PromiseLike<any>> => {
-  console.log('from generator', object);
   return Object.values(object).map(async value => {
     if (isDirExists(value)) {
       try {
