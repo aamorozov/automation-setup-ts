@@ -1,6 +1,9 @@
+import * as path from 'path';
+
 import {
   getStaticDirectories,
   isDirExists,
+  pathResolver,
   promisifiedCopy,
   regection,
   removeWordFromString,
@@ -8,17 +11,13 @@ import {
   warning
 } from './utils';
 
-import * as path from 'path';
+const STATIC_FOLDER_PATH = pathResolver(['src', 'static']);
 
-const STATIC_FOLDER_PATH = path.resolve(path.join('src', 'static'));
-const getTestSuitePath = (directory: string) =>
-  path.resolve(path.join('__tests__', 'e2e', directory));
-
-export default async function generateExamples(): Promise<void> {
+export default async function generateTestSuite(): Promise<void> {
   const getExistingDirectories = (object: object): string[] | null => {
     const existingObjects = Object.values(object).filter(
       (directory: string): string | null => {
-        if (isDirExists(getTestSuitePath(directory))) {
+        if (isDirExists(pathResolver([directory]))) {
           return null;
         } else {
           return directory;
@@ -37,7 +36,8 @@ export default async function generateExamples(): Promise<void> {
   ): Promise<void> => {
     await Promise.all(
       staticDirectories.map(async directory => {
-        if (isDirExists(directory)) {
+        const existingDirectory = path.join('__tests__', 'e2e', directory);
+        if (isDirExists(existingDirectory)) {
           try {
             Promise.resolve(
               warning(`Directory already exists at ${directory}`)
@@ -47,8 +47,8 @@ export default async function generateExamples(): Promise<void> {
           }
         } else {
           try {
-            const from = path.resolve(path.join('src', 'static', directory));
-            const to = path.resolve(path.join('__tests__', 'e2e', directory));
+            const from = pathResolver(['src', 'static', directory]);
+            const to = existingDirectory;
             try {
               await promisifiedCopy(from, to);
             } catch (e) {

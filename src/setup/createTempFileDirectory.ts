@@ -1,11 +1,37 @@
 import * as path from 'path';
-import { generateResolvers } from './utils';
+import {
+  isDirExists,
+  promisifiedMkdirp,
+  regection,
+  success,
+  warning
+} from './utils';
 
 const tempDirectoryFiles: object = {
   videos: path.join('__tests__', 'e2e', 'generatedFiles', 'videos'),
   reports: path.join('__tests__', 'e2e', 'generatedFiles', 'reports'),
   screenshots: path.join('__tests__', 'e2e', 'generatedFiles', 'screenshots'),
   serverLogs: path.join('__tests__', 'e2e', 'generatedFiles', 'serverLogs')
+};
+
+const generateResolvers = (object: object): Iterable<PromiseLike<any>> => {
+  console.log('from generator', object);
+  return Object.values(object).map(async value => {
+    if (isDirExists(value)) {
+      try {
+        Promise.resolve(warning(`Directory already exists at ${value}`));
+      } catch (e) {
+        Promise.reject(regection(e));
+      }
+    } else {
+      try {
+        await promisifiedMkdirp(value);
+        Promise.resolve(success(`Created directories in ${value}`));
+      } catch (e) {
+        Promise.reject(regection(e));
+      }
+    }
+  });
 };
 
 export default async function createTempFileDirectory(): Promise<void> {
