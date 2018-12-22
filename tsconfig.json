@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Redirect output structure to the directory. */
-    "outDir": "./build",
+    "outDir": "./__tests__",
     /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd' or 'es2015' */
     "module": "commonjs",
     /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT' */
@@ -16,7 +16,7 @@
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "moduleResolution": "node",
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    "rootDir": "./src",
+    "rootDir": "./__tests__",
     /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
@@ -43,5 +43,5 @@
     /* Enables experimental support for emitting type metadata for decorators. */
     "emitDecoratorMetadata": true
   },
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "__tests__", "index.ts"]
 }
