@@ -1,26 +1,21 @@
 {
-  "name": "nightwatch-new",
+  "name": "nightwatch-typescript-setup",
   "author": "Andrey Morozov",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc && node ./dist/index.js",
     "test": "tsc && ./node_modules/.bin/nightwatch --env default --config ./build/nightwatch.conf.js --verbose",
     "chrome": "tsc && ./node_modules/.bin/nightwatch --env chrome --config ./build/nightwatch.conf.js --verbose",
     "firefox": "tsc && ./node_modules/.bin/nightwatch --env firefox --config ./build/nightwatch.conf.js --verbose"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "engines": {
-    "node": "^10.0.0",
-    "yarn": "^1.10.0"
+    "node": "11.3.0",
+    "yarn": "1.12.3"
   },
   "dependencies": {
-    "@babel/preset-typescript": "7.1.0",
-    "@types/chalk": "^2.2.0",
-    "@types/chromedriver": "^2.38.0",
-    "@types/fs-extra": "^5.0.4",
-    "@types/mkdirp": "^0.5.2",
-    "@types/webpack": "^4.4.22",
-    "@types/webpack-dev-server": "^3.1.1",
     "chalk": "^2.4.1",
     "chromedriver": "^2.45.0",
     "fs-extra": "^7.0.1",
@@ -29,13 +24,19 @@
     "nightwatch": "1.0.16",
     "selenium-server": "3.141.59",
     "tslint-config-prettier": "1.17.0",
-    "webpack": "^4.28.1",
-    "webpack-dev-server": "^3.1.11"
+    "webpack": "^4.28.2",
+    "webpack-dev-server": "^3.1.12"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
     "@babel/preset-env": "7.2.3",
     "@babel/register": "7.0.0",
+    "@babel/preset-typescript": "7.1.0",
+    "@types/chromedriver": "^2.38.0",
+    "@types/fs-extra": "^5.0.4",
+    "@types/mkdirp": "^0.5.2",
+    "@types/webpack": "^4.4.22",
+    "@types/webpack-dev-server": "^3.1.1",
     "@types/nightwatch": "0.9.11",
     "@types/node": "10.12.18",
     "babel-plugin-add-module-exports": "1.0.0",

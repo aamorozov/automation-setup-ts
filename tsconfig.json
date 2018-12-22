@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    /* Emitting types to index.t.ts */
+    "declaration": true,
     /* Redirect output structure to the directory. */
-    "outDir": "./__tests__",
+    "outDir": "./dist",
     /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd' or 'es2015' */
     "module": "commonjs",
     /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT' */
@@ -9,14 +11,14 @@
     /* Specify library files to be included in the compilation:  */
     "lib": ["esnext"],
     /* Allow javascript files to be compiled. */
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": false,
     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     "jsx": "react",
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "moduleResolution": "node",
     /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    "rootDir": "./__tests__",
+    // "rootDir": "./__tests__",
     /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
@@ -43,5 +45,5 @@
     /* Enables experimental support for emitting type metadata for decorators. */
     "emitDecoratorMetadata": true
   },
-  "exclude": ["node_modules", "__tests__", "index.ts"]
+  "exclude": ["node_modules", "dist", "src/static"]
 }
