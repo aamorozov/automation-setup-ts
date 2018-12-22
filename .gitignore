@@ -4,3 +4,4 @@ node_modules
 *.png
 build
 .DS_Store
+__tests__

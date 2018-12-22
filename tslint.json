@@ -8,7 +8,7 @@
     "no-unused-variable": true,
     "curly": true,
     "class-name": true,
-    "semicolon": ["always"],
+    "semicolon": true,
     "single-quote": true,
     "triple-equals": true,
     "quotemark": [true, "single"],

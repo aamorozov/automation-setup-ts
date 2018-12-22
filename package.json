@@ -9,6 +9,10 @@
     "chrome": "tsc && ./node_modules/.bin/nightwatch --env chrome --config ./build/nightwatch.conf.js --verbose",
     "firefox": "tsc && ./node_modules/.bin/nightwatch --env firefox --config ./build/nightwatch.conf.js --verbose"
   },
+  "engines": {
+    "node": "^10.0.0",
+    "yarn": "^1.10.0"
+  },
   "dependencies": {
     "@babel/preset-typescript": "7.1.0",
     "@types/chalk": "^2.2.0",
