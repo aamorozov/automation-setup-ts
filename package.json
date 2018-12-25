@@ -4,10 +4,11 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "postinstall": "tsc && node ./dist/index.js",
     "build": "tsc && node ./dist/index.js",
-    "test": "tsc && ./node_modules/.bin/nightwatch --env default --config ./build/nightwatch.conf.js --verbose",
-    "chrome": "tsc && ./node_modules/.bin/nightwatch --env chrome --config ./build/nightwatch.conf.js --verbose",
-    "firefox": "tsc && ./node_modules/.bin/nightwatch --env firefox --config ./build/nightwatch.conf.js --verbose"
+    "test": "./node_modules/.bin/nightwatch --env default --config ./dist/__tests__/e2e/nightwatch.conf.js --verbose",
+    "chrome": "tsc && ./node_modules/.bin/nightwatch --env chrome --config ./dist/__tests__/e2e/nightwatch.conf.js --verbose",
+    "firefox": "tsc && ./node_modules/.bin/nightwatch --env firefox --config ./dist/__tests__/e2e/nightwatch.conf.js --verbose"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
