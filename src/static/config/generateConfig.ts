@@ -24,8 +24,6 @@ export const generateConfig = (
     inline: false
   });
 
-  const closeServer = promisify(webpackServer.close);
-
   const startDriver = (): Promise<void> =>
     new Promise((resolve, reject) => {
       try {
@@ -52,7 +50,9 @@ export const generateConfig = (
   };
 
   const stopDriverAndServer = async (done: () => void): Promise<void> => {
-    return Promise.all([closeServer(), stopDriver()]).then(() => done());
+    return Promise.all([webpackServer.close(), stopDriver()]).then(() =>
+      done()
+    );
   };
 
   const endBrowserSession = (browser: NightwatchBrowser, done: () => void) =>
@@ -63,16 +63,16 @@ export const generateConfig = (
       start_process: false
     },
     webdriver: {
-      start_process: false
+      start_process: true,
+      server_path: 'node_modules/.bin/chromedriver',
+      port: 9515
     },
-
-    src_folders: './__tests__/e2e/tests',
-    output_folder:
-      process.env.REPORT_DIR || './__tests__/e2e/generatedFiles/reports',
-    custom_commands_path: './__tests__/e2e/commands',
-    custom_assertions_path: './__tests__/e2e/assertions',
-    page_objects_path: './__tests__/e2e/pageObjects',
-    globals_path: './__tests__/e2e/utils/nightwatch.globals.js',
+    src_folders: './tests',
+    output_folder: process.env.REPORT_DIR || './generatedFiles/reports',
+    custom_commands_path: './commands',
+    custom_assertions_path: './assertions',
+    page_objects_path: './pages',
+    globals_path: './globals.js',
     persist_globals: true,
     test_workers: {
       enabled: false,
@@ -112,9 +112,7 @@ export const generateConfig = (
           enabled: true,
           on_failure: true,
           on_error: true,
-          path:
-            process.env.SCREENSHOTS_DIR ||
-            './__tests__/e2e/generatedFiles/screenshots'
+          path: process.env.SCREENSHOTS_DIR || './generatedFiles/screenshots'
         },
         desiredCapabilities: {
           browserName: 'chrome',
