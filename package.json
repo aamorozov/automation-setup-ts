@@ -17,32 +17,32 @@
     "yarn": "1.12.3"
   },
   "dependencies": {
-    "chalk": "^2.4.1",
-    "chromedriver": "^2.45.0",
+    "chalk": "^2.4.2",
+    "chromedriver": "^2.46.0",
     "fs-extra": "^7.0.1",
-    "geckodriver": "1.14.1",
+    "geckodriver": "1.16.0",
     "mkdirp": "^0.5.1",
-    "nightwatch": "1.0.16",
+    "nightwatch": "1.0.19",
     "selenium-server": "3.141.59",
-    "tslint-config-prettier": "1.17.0",
-    "webpack": "^4.28.2",
-    "webpack-dev-server": "^3.1.12"
+    "tslint-config-prettier": "1.18.0",
+    "webpack": "^4.29.6",
+    "webpack-dev-server": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.2.2",
-    "@babel/preset-env": "7.2.3",
-    "@babel/register": "7.0.0",
-    "@babel/preset-typescript": "7.1.0",
+    "@babel/core": "7.4.0",
+    "@babel/preset-env": "7.4.2",
+    "@babel/preset-typescript": "7.3.3",
+    "@babel/register": "7.4.0",
     "@types/chromedriver": "^2.38.0",
-    "@types/fs-extra": "^5.0.4",
+    "@types/fs-extra": "^5.0.5",
     "@types/mkdirp": "^0.5.2",
-    "@types/webpack": "^4.4.22",
-    "@types/webpack-dev-server": "^3.1.1",
-    "@types/nightwatch": "0.9.11",
-    "@types/node": "10.12.18",
+    "@types/nightwatch": "0.9.12",
+    "@types/node": "11.11.5",
+    "@types/webpack": "^4.4.26",
+    "@types/webpack-dev-server": "^3.1.4",
     "babel-plugin-add-module-exports": "1.0.0",
-    "prettier": "1.15.3",
-    "tslint": "5.12.0",
-    "typescript": "3.2.2"
+    "prettier": "1.16.4",
+    "tslint": "5.14.0",
+    "typescript": "3.3.4000"
   }
 }
