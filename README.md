@@ -7,6 +7,10 @@ Provides the e2e test suite architecture as well as the default configuration wi
 
 1. Install the project
 
+```
+npm install nightwatch-setup-ts
+```
+
 Done! You can run the example test by executing the following command
 
 ```
