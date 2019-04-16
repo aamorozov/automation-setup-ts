@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import * as fs from 'fs-extra';
 import * as mkdirp from 'mkdirp';
 import * as path from 'path';
-import { promisify } from 'util';
+import {promisify} from 'util';
 
 export const promisifiedMkdirp = promisify(mkdirp);
 export const isDirExists = (dir: string): boolean => fs.existsSync(dir);
@@ -22,5 +22,5 @@ export const pathResolver = (values: string[]): string =>
 
 export const removeWordFromString = (
   str: string,
-  word: string
+  word: string,
 ): string | undefined => str.split(word).pop();

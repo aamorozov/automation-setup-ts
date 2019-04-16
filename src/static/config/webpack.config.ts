@@ -6,8 +6,8 @@ const config: webpack.Configuration = {
   entry: './foo.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'foo.bundle.js'
-  }
+    filename: 'foo.bundle.js',
+  },
 };
 
 export default config;

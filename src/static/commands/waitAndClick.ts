@@ -1,11 +1,11 @@
-import { NightwatchBrowser, NightwatchTypedCallbackResult } from "nightwatch";
+import {NightwatchBrowser, NightwatchTypedCallbackResult} from 'nightwatch';
 
 export function command(
   this: NightwatchBrowser,
   selector: string,
   waitTimeout = 5000,
   abortOnFailure?: boolean,
-  callback?: (result: NightwatchTypedCallbackResult<any>) => void
+  callback?: (result: NightwatchTypedCallbackResult<any>) => void,
 ) {
   return new Promise(resolve => {
     this.waitForElementVisible(
@@ -20,7 +20,7 @@ export function command(
         } else {
           this.moveToElement(selector, 0, 0).click(selector, () => resolve());
         }
-      }
+      },
     );
   }).then(() => callback && callback.call(this));
 }

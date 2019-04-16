@@ -6,7 +6,7 @@ import {NightwatchBrowser, NightwatchTestHook} from 'nightwatch';
 
 const afterEach: NightwatchTestHook = (
   client: NightwatchBrowser,
-  done: () => void
+  done: () => void,
 ) => {
   client.end(done);
 };

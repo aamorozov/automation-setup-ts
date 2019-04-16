@@ -1,7 +1,7 @@
-import * as NW from "nightwatch";
+import * as NW from 'nightwatch';
 
 // merge interfaces with nightwatch types
-declare module "nightwatch" {
+declare module 'nightwatch' {
   export interface NightwatchWebdriverOptions extends NightwatchOptions {
     test_settings: NW.NightwatchTestSettings;
   }
@@ -15,14 +15,14 @@ declare module "nightwatch" {
       data: string,
       waitTimeout?: number,
       abortOnFailure?: boolean,
-      callback?: Function
+      callback?: () => void,
     ): NW.NightwatchBrowser;
     waitAndClick(
       this: NW.NightwatchBrowser,
       selector: string,
       waitTimeout?: number,
       abortOnFailure?: boolean,
-      callback?: Function
+      callback?: () => void,
     ): NW.NightwatchBrowser;
   }
   export interface SharedFunctions {
@@ -31,7 +31,7 @@ declare module "nightwatch" {
       time?: number,
       abortOnFailure?: boolean,
       callback?: (result: NW.NightwatchTypedCallbackResult<any>) => void,
-      message?: string
+      message?: string,
     ): this;
   }
 }

@@ -1,36 +1,32 @@
-import { promisify } from 'util';
-
-import { NightwatchBrowser } from 'nightwatch';
-
 import * as chromedriver from 'chromedriver';
 import * as webpack from 'webpack';
 import * as WebpackDevServer from 'webpack-dev-server';
+import {NightwatchBrowser} from 'nightwatch';
+import {promisify} from 'util';
 
 const stopDriver = promisify(chromedriver.stop);
 
-let port = 8080;
+const port = Number(process.env.TEST_PORT) || 8080;
 
 export const generateConfig = (
   webpackConfig: webpack.Configuration,
-  providedPort = port
+  providedPort = port,
 ) => {
-  if (providedPort) {
-    port = providedPort;
-  }
-
   const webpackServer = new WebpackDevServer(webpack(webpackConfig), {
     quiet: true,
     hot: false,
-    inline: false
+    inline: false,
   });
 
   const startDriver = (): Promise<void> =>
     new Promise((resolve, reject) => {
       try {
         const childProcess = chromedriver.start();
-        childProcess.stdout.once('data', () => {
-          resolve();
-        });
+        if (childProcess && childProcess.stdout) {
+          childProcess.stdout.once('data', () => {
+            resolve();
+          });
+        }
       } catch (e) {
         reject(e);
       }
@@ -39,7 +35,7 @@ export const generateConfig = (
   const startServer = (): Promise<any> =>
     new Promise((resolve, reject) => {
       try {
-        webpackServer.listen(port, '0.0.0.0', resolve);
+        webpackServer.listen(providedPort, '0.0.0.0', resolve);
       } catch (e) {
         reject(e);
       }
@@ -51,7 +47,7 @@ export const generateConfig = (
 
   const stopDriverAndServer = async (done: () => void): Promise<void> => {
     return Promise.all([webpackServer.close(), stopDriver()]).then(() =>
-      done()
+      done(),
     );
   };
 
@@ -60,23 +56,24 @@ export const generateConfig = (
 
   const config = {
     selenium: {
-      start_process: false
+      start_process: false,
     },
     webdriver: {
       start_process: true,
       server_path: 'node_modules/.bin/chromedriver',
-      port: 9515
+      port: 9515,
     },
     src_folders: './tests',
-    output_folder: process.env.REPORT_DIR || './generatedFiles/reports',
-    custom_commands_path: './commands',
-    custom_assertions_path: './assertions',
-    page_objects_path: './pages',
+    output_folder:
+      process.env.REPORT_DIR || './__tests__/e2e/generatedFiles/reports',
+    custom_commands_path: './__tests__/e2e/commands',
+    custom_assertions_path: './__tests__/e2e/assertions',
+    page_objects_path: './__tests__/e2e/pages',
     globals_path: './globals.js',
     persist_globals: true,
     test_workers: {
       enabled: false,
-      workers: 5
+      workers: 5,
     },
     test_settings: {
       default: {
@@ -99,43 +96,45 @@ export const generateConfig = (
             laptop: [1280, 750],
             laptop_large: [1440, 800],
             dekstop: [1600, 900],
-            desktop_large: [1920, 970]
+            desktop_large: [1920, 970],
           },
           asyncHookTimeout: 30000,
           waitForConditionTimeout: 30000,
           retryAssertionTimeout: 1000,
           before: startDriverAndServer,
           after: stopDriverAndServer,
-          afterEach: endBrowserSession
+          afterEach: endBrowserSession,
         },
         screenshots: {
           enabled: true,
           on_failure: true,
           on_error: true,
-          path: process.env.SCREENSHOTS_DIR || './generatedFiles/screenshots'
+          path:
+            process.env.SCREENSHOTS_DIR ||
+            './__tests__/e2e/generatedFiles/screenshots',
         },
         desiredCapabilities: {
           browserName: 'chrome',
           javascriptEnabled: true,
           acceptSslCerts: true,
           chromeOptions: {
-            args: ['--no-sandbox', '--window-size=1920,1080']
-          }
-        }
+            args: ['--no-sandbox', '--window-size=1920,1080'],
+          },
+        },
       },
       production: {
-        launch_url: process.env.PRODUCTION
+        launch_url: process.env.PRODUCTION,
       },
       staging: {
-        launch_url: process.env.STAGING
+        launch_url: process.env.STAGING,
       },
       development: {
-        launch_url: process.env.DEVELOPMENT
+        launch_url: process.env.DEVELOPMENT,
       },
       local: {
-        launch_url: process.env.LOCAL
-      }
-    }
+        launch_url: process.env.LOCAL,
+      },
+    },
   };
   return config;
 };
