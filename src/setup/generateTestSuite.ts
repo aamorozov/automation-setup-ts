@@ -8,7 +8,7 @@ import {
   regection,
   removeWordFromString,
   success,
-  warning
+  warning,
 } from './utils';
 
 const STATIC_FOLDER_PATH = pathResolver(['src', 'static']);
@@ -22,7 +22,7 @@ export default async function generateTestSuite(): Promise<void> {
         } else {
           return directory;
         }
-      }
+      },
     );
     if (existingObjects.length > 0) {
       return existingObjects;
@@ -32,15 +32,19 @@ export default async function generateTestSuite(): Promise<void> {
   };
 
   const generateResolvers = async (
-    staticDirectories: string[]
+    staticDirectories: string[],
   ): Promise<void> => {
     await Promise.all(
       staticDirectories.map(async directory => {
-        const existingDirectory = path.join('__tests__', 'e2e', directory);
+        const existingDirectory = path.join(
+          '../../__tests__',
+          'e2e',
+          directory,
+        );
         if (isDirExists(existingDirectory)) {
           try {
             Promise.resolve(
-              warning(`Directory already exists at ${directory}`)
+              warning(`Directory already exists at ${directory}`),
             );
           } catch (e) {
             Promise.reject(regection(e));
@@ -58,19 +62,19 @@ export default async function generateTestSuite(): Promise<void> {
               success(
                 `The directory ${removeWordFromString(
                   `${directory}`,
-                  './static/'
-                )} was created and copied successfuly!`
-              )
+                  './static/',
+                )} was created and copied successfuly!`,
+              ),
             );
           } catch (e) {
             Promise.reject(
               regection(
-                `There is an error when coppying the directory: \n ${e}`
-              )
+                `There is an error when coppying the directory: \n ${e}`,
+              ),
             );
           }
         }
-      })
+      }),
     );
   };
 
