@@ -43,8 +43,9 @@
     /* Enables experimental support for ES7 decorators. */
     "experimentalDecorators": true,
     /* Enables experimental support for emitting type metadata for decorators. */
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
     // "skipLibCheck": true
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist", "src/static"]
 }

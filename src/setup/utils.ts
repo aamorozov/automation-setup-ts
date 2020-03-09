@@ -1,7 +1,7 @@
 import chalk from 'chalk';
-import * as fs from 'fs-extra';
-import * as mkdirp from 'mkdirp';
-import * as path from 'path';
+import fs from 'fs-extra';
+import mkdirp from 'mkdirp';
+import path from 'path';
 import {promisify} from 'util';
 
 export const promisifiedMkdirp = promisify(mkdirp);

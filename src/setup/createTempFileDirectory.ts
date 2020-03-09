@@ -34,7 +34,7 @@ const generateResolvers = (object: object): Iterable<PromiseLike<any>> => {
       }
     } else {
       try {
-        await promisifiedMkdirp(value);
+        await promisifiedMkdirp(value, undefined);
         Promise.resolve(success(`Created directories in ${value}`));
       } catch (e) {
         Promise.reject(regection(e));
