@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./*"],
+      "src/*": ["src/*"]
+    },
+    "types": ["node", "webdriverio", "@wdio/mocha-framework"]
+  },
+  "noImplicitAnyForClassMembers": false
+  // "include": ["src/tests/**/*.ts"]
+}

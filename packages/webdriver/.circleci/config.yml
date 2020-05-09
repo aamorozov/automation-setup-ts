@@ -1,0 +1,44 @@
+version: 2.0
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest-browsers
+
+    environment:
+      REPORT_DIR: ${CIRCLE_TEST_REPORTS}
+      SCREENSHOTS_DIR: ${CIRCLE_ARTIFACTS}/screenshots
+      LOG_DIR: ${CIRCLE_ARTIFACTS}
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: yarn install --ignore-engines
+      - run:
+          name: Running tests
+          command: yarn test
+      - save_cache:
+          paths:
+            - node_modules
+            - .cache
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - store_artifacts:
+          path: ${CIRCLE_ARTIFACTS}
+      - store_test_results:
+          path: ${CIRCLE_TEST_REPORTS}
+
+workflows:
+  version: 2
+  normal_workflow:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
