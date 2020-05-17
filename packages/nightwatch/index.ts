@@ -1,3 +1,4 @@
+// @ts-nocheck
 import chalk from 'chalk';
 import createTempFileDirectory from './src/setup/createTempFileDirectory';
 import generateTestSuite from './src/setup/generateTestSuite';
@@ -7,7 +8,10 @@ const packageIsWithinProject = () =>
 
 if (packageIsWithinProject()) {
   console.log(chalk.green('Package is used as a dependency. Scaffolding...'));
-  Promise.all([createTempFileDirectory(), generateTestSuite()]);
+  [createTempFileDirectory, generateTestSuite].reduce(
+    (p, fn) => p.then(fn),
+    Promise.resolve(),
+  );
 } else {
   console.log(chalk.yellow('Package is used locally. Skipping...'));
 }

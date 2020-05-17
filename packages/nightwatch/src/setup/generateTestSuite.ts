@@ -1,94 +1,66 @@
-import * as path from 'path';
+import path from 'path';
+import chalk from 'chalk';
 
 import {
-  getStaticDirectories,
+  readDirAsync,
   isDirExists,
-  pathResolver,
-  promisifiedCopy,
-  regection,
+  resolvePaths,
+  copyAsync,
+  rejection,
   removeWordFromString,
   success,
   warning,
 } from './utils';
 
-const STATIC_FOLDER_PATH = pathResolver(['src', 'static']);
+const STATIC_FOLDER_PATH = resolvePaths(['src', 'static']);
+
+const getExistingDirs = (dirs: string[]): string[] | null => {
+  const existingDirs = dirs.filter((dir: string): string | null => {
+    if (isDirExists(resolvePaths([dir]))) {
+      return null;
+    } else {
+      return dir;
+    }
+  });
+  return existingDirs.length > 0 ? existingDirs : null;
+};
+
+const resolveDirs = async (dirs: string[]): Promise<void> => {
+  await Promise.all(
+    dirs.map(async (dir) => {
+      const existingDir = path.join('../../__tests__', 'e2e', dir);
+      const exists = isDirExists(existingDir);
+      if (exists) {
+        return warning(`Directory already exists at ${chalk.bold(dir)}`);
+      } else {
+        try {
+          const from = resolvePaths(['src', 'static', dir]);
+          const to = existingDir;
+          await copyAsync(from, to);
+          return success(
+            `The directory ${chalk.bold(
+              removeWordFromString(`${dir}`, './static/'),
+            )} was created and copied successfuly!`,
+          );
+        } catch (e) {
+          throw rejection(`Error copying directory ${chalk.bold(dir)}`);
+        }
+      }
+    }),
+  );
+};
 
 export default async function generateTestSuite(): Promise<void> {
-  const getExistingDirectories = (object: object): string[] | null => {
-    const existingObjects = Object.values(object).filter(
-      (directory: string): string | null => {
-        if (isDirExists(pathResolver([directory]))) {
-          return null;
-        } else {
-          return directory;
-        }
-      },
-    );
-    if (existingObjects.length > 0) {
-      return existingObjects;
-    } else {
-      return null;
+  try {
+    /**
+     * this returns all dirs that exist in target dir
+     */
+    const staticDirs = await readDirAsync(STATIC_FOLDER_PATH);
+    const existingDirs = getExistingDirs(staticDirs);
+    if (existingDirs) {
+      await resolveDirs(existingDirs);
     }
-  };
-
-  const generateResolvers = async (
-    staticDirectories: string[],
-  ): Promise<void> => {
-    await Promise.all(
-      staticDirectories.map(async directory => {
-        const existingDirectory = path.join(
-          '../../__tests__',
-          'e2e',
-          directory,
-        );
-        if (isDirExists(existingDirectory)) {
-          try {
-            Promise.resolve(
-              warning(`Directory already exists at ${directory}`),
-            );
-          } catch (e) {
-            Promise.reject(regection(e));
-          }
-        } else {
-          try {
-            const from = pathResolver(['src', 'static', directory]);
-            const to = existingDirectory;
-            try {
-              await promisifiedCopy(from, to);
-            } catch (e) {
-              Promise.reject(e);
-            }
-            Promise.resolve(
-              success(
-                `The directory ${removeWordFromString(
-                  `${directory}`,
-                  './static/',
-                )} was created and copied successfuly!`,
-              ),
-            );
-          } catch (e) {
-            Promise.reject(
-              regection(
-                `There is an error when coppying the directory: \n ${e}`,
-              ),
-            );
-          }
-        }
-      }),
-    );
-  };
-
-  const runPromises = async () => {
-    try {
-      const staticDirectories = await getStaticDirectories(STATIC_FOLDER_PATH);
-      const existingDirectories = getExistingDirectories(staticDirectories);
-      if (existingDirectories) {
-        await generateResolvers(existingDirectories);
-      }
-    } catch (e) {
-      Promise.reject(regection(e));
-    }
-  };
-
-  await runPromises();
+  } catch (e) {
+    throw rejection(e);
+  }
 }
