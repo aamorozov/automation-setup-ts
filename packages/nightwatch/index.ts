@@ -1,17 +1,13 @@
-// @ts-nocheck
 import chalk from 'chalk';
 import createTempFileDirectory from './src/setup/createTempFileDirectory';
 import generateTestSuite from './src/setup/generateTestSuite';
 
-const packageIsWithinProject = () =>
-  __dirname.includes('node_modules') ? true : false;
+// prettier-ignore
+const packageIsWithinProject = () => Boolean(__dirname.includes('node_modules'));
 
 if (packageIsWithinProject()) {
   console.log(chalk.green('Package is used as a dependency. Scaffolding...'));
-  [createTempFileDirectory, generateTestSuite].reduce(
-    (p, fn) => p.then(fn),
-    Promise.resolve(),
-  );
+  Promise.all([createTempFileDirectory(), generateTestSuite()]);
 } else {
   console.log(chalk.yellow('Package is used locally. Skipping...'));
 }

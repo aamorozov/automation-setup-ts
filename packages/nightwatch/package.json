@@ -1,47 +1,51 @@
 {
-	"name": "nightwatch-setup-ts",
-	"author": "Andrey Morozov <aandreymorozov@gmail.com>",
-	"version": "1.0.8",
-	"license": "MIT",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"engines": {
-		"node": "^11.0.0",
-		"yarn": "^1.10.0"
-	},
-	"dependencies": {
-		"@types/chromedriver": "81.0.0",
-		"@types/fs-extra": "9.0.0",
-		"@types/mkdirp": "1.0.0",
-		"@types/nightwatch": "1.1.4",
-		"@types/node": "14.0.1",
-		"@types/webpack": "4.41.13",
-		"@types/webpack-dev-server": "3.10.1",
-		"chalk": "4.0.0",
-		"chromedriver": "81.0.0",
-		"fs-extra": "9.0.0",
-		"geckodriver": "1.19.1",
-		"mkdirp": "1.0.4",
-		"nightwatch": "1.3.5",
-		"selenium-server": "3.141.59",
-		"webpack": "4.43.0",
-		"webpack-dev-server": "3.11.0"
-	},
-	"devDependencies": {
-		"@babel/core": "7.9.6",
-		"@babel/preset-env": "7.9.6",
-		"@babel/preset-typescript": "7.9.0",
-		"@babel/register": "7.9.0",
-		"@typescript-eslint/eslint-plugin": "2.33.0",
-		"babel-plugin-add-module-exports": "1.0.2",
-		"eslint": "7.0.0",
-		"eslint-config-prettier": "6.11.0",
-		"eslint-import-resolver-babel-module": "5.1.2",
-		"eslint-loader": "4.0.2",
-		"eslint-plugin-eslint-comments": "3.1.2",
-		"eslint-plugin-import": "2.20.2",
-		"eslint-plugin-prettier": "3.1.3",
-		"prettier": "2.0.5",
-		"typescript": "3.9.2"
-	}
+  "name": "nightwatch-setup-ts",
+  "author": "Andrey Morozov <aandreymorozov@gmail.com>",
+  "version": "1.0.19",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "postinstall": "tsc && node ./dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": "^12.12.0",
+    "yarn": "^1.10.0"
+  },
+  "dependencies": {
+    "@types/chromedriver": "81.0.0",
+    "@types/fs-extra": "9.0.0",
+    "@types/mkdirp": "1.0.0",
+    "@types/nightwatch": "1.1.4",
+    "@types/node": "14.0.1",
+    "@types/webpack": "4.41.13",
+    "@types/webpack-dev-server": "3.10.1",
+    "chalk": "4.0.0",
+    "chromedriver": "81.0.0",
+    "fs-extra": "9.0.0",
+    "geckodriver": "1.19.1",
+    "mkdirp": "1.0.4",
+    "nightwatch": "1.3.5",
+    "selenium-server": "3.141.59",
+    "webpack": "4.43.0",
+    "webpack-dev-server": "3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.6",
+    "@babel/preset-env": "7.9.6",
+    "@babel/preset-typescript": "7.9.0",
+    "@babel/register": "7.9.0",
+    "@typescript-eslint/eslint-plugin": "2.33.0",
+    "babel-plugin-add-module-exports": "1.0.2",
+    "eslint": "7.0.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-import-resolver-babel-module": "5.1.2",
+    "eslint-loader": "4.0.2",
+    "eslint-plugin-eslint-comments": "3.1.2",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-prettier": "3.1.3",
+    "prettier": "2.0.5",
+    "typescript": "3.9.2"
+  }
 }
